@@ -179,7 +179,5 @@ recognition.onerror = function (event) {
 
 document.querySelector('#btnGiveCommand').addEventListener('click', function () {
     recognition.start();
-
- 
 });
 
