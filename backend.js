@@ -18,20 +18,19 @@ recognition.interimResults = false;
 recognition.onresult = function (event) {
     var last = event.results.length - 1;
     var command = event.results[last][0].transcript;  //variable command contains the last result of what you spoke
-    message.textContent = 'Voice Input: ' + command + '.';
     console.log(command);
 
-    if (command.toLowerCase().includes('login')) {
+    if (command.toLowerCase().includes('login') || command.toLowerCase().includes('sign in')  ) {
         readLogin(command)
         displayUserCommand(command);
         displayLogin();
     }
-    else if (command.toLowerCase().includes('register')) {
+    else if (command.toLowerCase().includes('register') || command.toLowerCase().includes('sign up')  ) {
         readRegister(command);
         displayUserCommand(command);
         displayRegister();
     }
-    else if (command.toLowerCase().includes('contact')) { 
+    else if (command.toLowerCase().includes('contact') || command.toLowerCase().includes('get in touch') ) { 
         readContact(command);
         openMail(command);
     } 
@@ -39,12 +38,15 @@ recognition.onresult = function (event) {
         readParts(command);
         displayParts(command);
     }
-    else if (command.toLowerCase().includes('microsoft')) {
+    else if (command.toLowerCase().includes('microsoft') || command.toLowerCase().includes('365') ) {
         readMicrosoft(command);
         $('#pdfModal').modal('show');
     }
     else if (command.toLowerCase().includes('open page')) {
         openLogin ();
+    }
+    else if (command.toLowerCase().includes('email student office') || command.toLowerCase().includes('female student office')  ) {
+        emailStudentOffice ();
     }
     else {
         errorMessage(command);
@@ -54,7 +56,6 @@ volume = 1;
 muted = 0;
 
 function muteFunction() {
-
 
     if (muted == 0) {
         document.getElementById('muteIcon').classList = 'fas fa-volume-mute';
@@ -72,6 +73,14 @@ function muteFunction() {
     window.speechSynthesis.speak(speech);
     speech.volume = volume;
 }
+
+function emailStudentOffice () {
+
+    window.open("mailto:studentoffice@mdx.ac.mu");
+}
+
+
+
 
 //function to open login page
 function openLogin () {
@@ -118,7 +127,7 @@ function readLogin(command) {
 function displayRegister() {
     let register='';
     register+='<div class="assitantResponse">';
-    register += '<p> Student office contact details:  </br> Phone Number: + 230 403 6400 </br> Email: studentoffice@mdx.ac.mu </p>' 
+    register += '<p> Student office contact details:  </br> Phone Number: + 230 403 6400 </br> Email: studentoffice@mdx.ac.mu <br> If you want me to open your email directly, say <b> Email Student Office </b> </p>' 
     register += '</div>';
     globalUser.innerHTML += register;
     return globalUser;
@@ -128,7 +137,7 @@ function displayRegister() {
 function readRegister(command) {
     var speech = new SpeechSynthesisUtterance(); //speech is an object of class SpeechSynthesisUtterance
     speech.volume = volume;    
-    speech.text = ' Registration on Unihub can only be done by the student office. Please get in touch with the student office to create a unihub account. I have included the contact details below ';
+    speech.text = ' Registration on Unihub can only be done by the student office. Please get in touch with the student office to create a unihub account. I have included the contact details below. '+ 'I can also open your Email directly, just say <b> Email Student Office </b>';
     window.speechSynthesis.speak(speech);
 }
 
