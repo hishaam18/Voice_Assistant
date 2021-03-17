@@ -25,6 +25,13 @@ recognition.onresult = function (event) {
         displayUserCommand(command);
         displayLogin();
     }
+    else if (command.toLowerCase().includes(' hello ') || command.toLowerCase().includes(' hi ') ||  command.toLowerCase().includes(' hey ') ||  command.toLowerCase().includes(' good morning ') ||  command.toLowerCase().includes(' good evening ') ||  command.toLowerCase().includes(' greetings ')) {
+        readHello(command);
+        displayUserCommand(command);
+        displayHello();
+        console.log(command);
+    }
+
     else if (command.toLowerCase().includes('register') || command.toLowerCase().includes('sign up')  ) {
         readRegister(command);
         displayUserCommand(command);
@@ -51,6 +58,22 @@ recognition.onresult = function (event) {
     else {
         errorMessage(command);
     }};
+
+var arrHello = [
+    'Greetings from your Voice assistant. If you want to know my commands, refer to the help section',
+    'Hello, I am Jarvis, your voice assistant. Ask me any commands you want from the help area. I will grant your wish',
+    'Hello, my name is Jarvis, I am your' + 'IT' + 'Support voice assistant.' + ' Please refer to the command list to know how I can help you '
+];
+
+
+var arrError = [
+    'Sorry, I didnt catch what you were trying to say, please refer to the help settings for the list of commands  ',
+    'I dont think I quite catch that, please say it again',
+    'I didnt understand you, you might want to try again using the command list'
+];
+
+
+
 
 volume = 1;
 muted = 0;
@@ -79,8 +102,23 @@ function emailStudentOffice () {
     window.open("mailto:studentoffice@mdx.ac.mu");
 }
 
+function readHello(command) {
+    var speech = new SpeechSynthesisUtterance(); //speech is an object of class SpeechSynthesisUtterance    
+    speech.volume = volume;
+   // speech.text = ' Hello, my name is Jarvis, I am your' + 'IT' + 'Support voice assistant.' + ' Please refer to the command list to know how I can help you ';
+    speech.text =  arrHello[Math.floor(Math.random() * arrHello.length)] ; 
+   window.speechSynthesis.speak(speech);
+}
 
-
+//displaying dynamically for Login
+function displayHello() {
+    let hello='';
+    hello+= '<div class="assitantResponse">';
+    hello += 'Hello, my name is Jarvis, I am your IT Support Voice Assistant. Please refer to the command list to know how I can help you';
+    hello+= '</div>';
+    globalUser.innerHTML += hello;
+    return globalUser;
+}
 
 //function to open login page
 function openLogin () {
@@ -91,7 +129,7 @@ function openLogin () {
 function errorMessage(command) {
     var speech = new SpeechSynthesisUtterance(); //speech is an object of class SpeechSynthesisUtterance    
     speech.volume = volume;
-    speech.text = 'Sorry, I didnt catch what you were trying to say, please refer to the help settings for the list of commands ';
+    speech.text = arrError[Math.floor(Math.random() * arrError.length)] ;
     window.speechSynthesis.speak(speech);
 }
 
@@ -159,24 +197,6 @@ function readMicrosoft(command) {
 function openMail(command) {
     window.open("mailto:ithelpdesk@mdx.ac.mu");
 } 
-
-//this function reads aloud parts
-function readParts(command) {
-    var speech = new SpeechSynthesisUtterance(); //speech is an object of class SpeechSynthesisUtterance    
-    speech.volume = volume;
-    speech.text = ' Do you want to order parts ? ';
-    window.speechSynthesis.speak(speech);
-} 
-
-//displaying dynamically for Login
-function displayParts(command) {
-    let login='';
-    login+= '<div class="assitantResponse">';
-    login += '<p> Link to unihub: </br> Link: https://myunihub.mdx.ac.uk/ </br> </p>';
-    login+= '</div>';
-    globalUser.innerHTML += login;
-    return globalUser;
-}
 
 recognition.onspeechend = function () {
     recognition.stop();
