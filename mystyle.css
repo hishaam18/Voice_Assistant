@@ -74,6 +74,7 @@ cursor: pointer;
     border-radius: 40px;
     padding: 10px;
     overflow-y: auto;
+    margin-bottom: 5%;
    
 }
 ::-webkit-scrollbar {
