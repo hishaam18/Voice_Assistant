@@ -25,7 +25,7 @@ recognition.onresult = function (event) {
         displayUserCommand(command);
         displayLogin();
     }
-    else if (command.toLowerCase().includes(' hello ') || command.toLowerCase().includes(' hi ') ||  command.toLowerCase().includes(' hey ') ||  command.toLowerCase().includes(' good morning ') ||  command.toLowerCase().includes(' good evening ') ||  command.toLowerCase().includes(' greetings ')) {
+    else if (command.toLowerCase().includes('hello') || command.toLowerCase().includes('hai') ||  command.toLowerCase().includes('hey') ||  command.toLowerCase().includes('good morning') ||  command.toLowerCase().includes('good evening') ||  command.toLowerCase().includes('greetings')) {
         readHello(command);
         displayUserCommand(command);
         displayHello();
